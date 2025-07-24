@@ -22,6 +22,9 @@ class Settings:
     DB_NAME: str
 
     DB_TABLE_ORDERS: str
+    DB_TABLE_USERS: str
+
+    BOT_TOKEN: str
 
     @classmethod
     def load_from_env(cls) -> Self:
@@ -33,6 +36,9 @@ class Settings:
             DB_NAME=_get_env_var('DB_NAME', to_cast=str),
 
             DB_TABLE_ORDERS=_get_env_var('DB_TABLE_ORDERS', to_cast=str),
+            DB_TABLE_USERS=_get_env_var('DB_TABLE_USERS', to_cast=str),
+
+            BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
         )
     
     @property

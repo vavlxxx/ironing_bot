@@ -3,6 +3,7 @@ from sqlalchemy.ext.automap import automap_base
 
 from src.config import settings
 from src.repos.orders import OrdersRepository
+from src.repos.users import UsersRepository
 
 
 class DBManager:
@@ -17,6 +18,7 @@ class DBManager:
     async def __aenter__(self):
         self.session = self.session_factory()
         self.orders = OrdersRepository(self.session, self.get_model(settings.DB_TABLE_ORDERS))
+        self.users = UsersRepository(self.session, self.get_model(settings.DB_TABLE_USERS))
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
