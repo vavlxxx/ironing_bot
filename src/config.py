@@ -23,6 +23,7 @@ class Settings:
 
     DB_TABLE_ORDERS: str
     DB_TABLE_USERS: str
+    DB_TABLE_STATUSES: str
 
     BOT_TOKEN: str
 
@@ -37,6 +38,7 @@ class Settings:
 
             DB_TABLE_ORDERS=_get_env_var('DB_TABLE_ORDERS', to_cast=str),
             DB_TABLE_USERS=_get_env_var('DB_TABLE_USERS', to_cast=str),
+            DB_TABLE_STATUSES=_get_env_var('DB_TABLE_STATUSES', to_cast=str),
 
             BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
         )

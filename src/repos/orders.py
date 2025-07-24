@@ -1,5 +1,5 @@
 from src.repos.base import BaseRepository
-from src.schemas.orders import OrderDTO
+from schemas.orders import OrderDTO
 
 
 class OrdersRepository(BaseRepository):

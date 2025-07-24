@@ -4,6 +4,7 @@ from sqlalchemy.ext.automap import automap_base
 from src.config import settings
 from src.repos.orders import OrdersRepository
 from src.repos.users import UsersRepository
+from src.repos.statuses import StatusesRepository
 
 
 class DBManager:
@@ -19,6 +20,7 @@ class DBManager:
         self.session = self.session_factory()
         self.orders = OrdersRepository(self.session, self.get_model(settings.DB_TABLE_ORDERS))
         self.users = UsersRepository(self.session, self.get_model(settings.DB_TABLE_USERS))
+        self.statuses = StatusesRepository(self.session, self.get_model(settings.DB_TABLE_STATUSES))
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):

@@ -3,6 +3,7 @@ from decimal import Decimal
 from pydantic import Field
 from src.schemas.base import BaseDTO
 
+
 class UserDTO(BaseDTO):
     id: int
     phone: str | None = Field(max_length=20)

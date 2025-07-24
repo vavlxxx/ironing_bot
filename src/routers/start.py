@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from src.common.states import IntroductionStates
 from src.keyboards.reply import get_phone_keyboard
 from src.utils.db_manager import DBManager
-from src.utils.functions import format_phone_number
+from src.utils.functions import format_orders_list, format_phone_number
 
 
 router = Router()
@@ -34,6 +34,20 @@ async def phone_input_handler(message: Message, db: DBManager, state: FSMContext
 
     phone_ = f"+{phone}"
     user = await db.users.get_one_or_none(phone=phone_)
-    orders_by_user =await db.orders.get_all_filtered(user_id=user.id)
-    await message.answer(f"📝 Ваши заказы:\n\n{orders_by_user}", reply_markup=ReplyKeyboardRemove())
-    print(f"📝 Ваши заказы:\n\n{orders_by_user}")
+    
+    if user is None:
+        await message.answer(
+            "❌ Пользователь с таким номером телефона не найден"
+        )
+        return
+    
+    orders_by_user = await db.orders.get_all_filtered(user_id=user.id)
+    
+    formatted_message = format_orders_list(orders_by_user)
+    
+    await message.answer(
+        formatted_message, 
+        reply_markup=ReplyKeyboardRemove(),
+        parse_mode="Markdown"
+    )
+
