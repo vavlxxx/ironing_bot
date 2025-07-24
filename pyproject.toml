@@ -1,0 +1,23 @@
+[project]
+name = "ironing-bot"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "vavlxxx",email = "vladimir.nefedov357@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiogram (>=3.21.0,<4.0.0)",
+    "aiomysql (>=0.2.0,<0.3.0)",
+    "sqlalchemy (>=2.0.41,<3.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "ruff (>=0.12.4,<0.13.0)",
+    "pyright (>=1.1.403,<2.0.0)",
+    "pymysql (>=1.1.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
