@@ -20,5 +20,4 @@ class OrderDTO(BaseDTO):
     created_at: datetime | None
     updated_at: datetime | None
     amocrm_lead_id: int | None
-
-    
+    payment_url: str | None = Field(max_length=255)

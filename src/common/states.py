@@ -1,6 +1,7 @@
 from aiogram.fsm.state import StatesGroup, State
 
 
-class IntroductionStates(StatesGroup):
+class UserStates(StatesGroup):
     GET_PHONE = State()
+    GET_CODE = State()
     

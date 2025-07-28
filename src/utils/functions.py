@@ -1,4 +1,9 @@
-def format_phone_number(phone):
+
+
+from utils.exceptions import InvalidPhoneNumberException
+
+
+def _format_phone_number(phone):
     if not phone:
         return None
     digits_only = "".join(char for char in phone if char.isdigit())
@@ -16,6 +21,13 @@ def format_phone_number(phone):
     else:
         return digits_only
     
+
+def parse_phone_number(message):
+    raw_phone = message.text.strip() if message.contact is None else message.contact.phone_number
+    phone = _format_phone_number(raw_phone)
+    if not phone or not phone.startswith("7"):
+        raise InvalidPhoneNumberException
+    return f"+{phone}"
 
 
 def format_order_message(order) -> str:
@@ -38,7 +50,7 @@ def format_order_message(order) -> str:
 
 📅 **Дата создания:** {created_date}
 
-🔗 **ID в CRM:** `{order.amocrm_lead_id or 'Не привязан'}`
+🔗 **Ссылка на оплату:** `{order.payment_url or 'Отсутствует'}`
 
 ───────────────────────
 """

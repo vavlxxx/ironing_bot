@@ -4,12 +4,15 @@ from pydantic import Field
 from src.schemas.base import BaseDTO
 
 
-class UserDTO(BaseDTO):
+class UserRequestDTO(BaseDTO):
+    phone: str = Field(max_length=20)
+    bonus_points: int | None = Field(default=None)
+    total_orders: int | None = Field(default=None)
+    total_spent: Decimal | None = Field(None, max_digits=10, decimal_places=2)
+    telegram_id: int | None = Field(default=None)
+
+
+class UserDTO(UserRequestDTO):
     id: int
-    phone: str | None = Field(max_length=20)
-    bonus_points: int | None
-    total_orders: int | None
-    total_spent: Decimal | None = Field(max_digits=10, decimal_places=2)
-    created_at: datetime | None
-    last_login: datetime | None
-    
+    created_at: datetime | None = Field(default=None)
+    last_login: datetime | None = Field(default=None)

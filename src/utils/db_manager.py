@@ -9,11 +9,12 @@ from src.repos.statuses import StatusesRepository
 
 class DBManager:
     
-    def __init__(self, session_factory):
+    def __init__(self, session_factory, models_required=True):
         self.Base = None
         self.models = {}
         self.session_factory = session_factory
-        self._initialize_models()
+        if models_required:
+            self._initialize_models()
     
 
     async def __aenter__(self):
@@ -32,6 +33,9 @@ class DBManager:
 
     async def commit(self):
         await self.session.commit()
+
+    async def check_connection(self):
+        await self.session.execute("SELECT version();")
 
     def get_model(self, table_name: str):
         return self.models.get(table_name)

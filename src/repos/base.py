@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import insert, select, update
 
 
 class BaseRepository():
@@ -25,3 +25,18 @@ class BaseRepository():
             return None
         return self.schema.model_validate(obj)
     
+    async def add(self, obj, **params):
+        add_obj_stmt = (
+            insert(self.model).values(**obj.model_dump(), **params).returning(self.model)
+        )
+        result = await self.session.execute(add_obj_stmt)
+        obj = result.scalars().one()
+        return self.schema.model_validate(obj)
+    
+    async def edit(self, obj, exclude_unset=True, exclude_fields=None, **filter_by):
+        exclude_fields = exclude_fields or set()
+        to_update = obj.model_dump(exclude=exclude_fields, exclude_unset=exclude_unset)
+        if not to_update:
+            return
+        edit_obj_stmt = update(self.model).filter_by(**filter_by).values(**to_update)
+        await self.session.execute(edit_obj_stmt)
