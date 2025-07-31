@@ -60,14 +60,15 @@ async def sms_input_handler(message: Message, db: DBManager, state: FSMContext):
         return
 
     phone = data.get("phone")
+    telegram_id = str(message.from_user.id)
     
     try:
         await RegisterService(db).get_user_by(phone=phone)
     except UserNotFoundException:
-        await RegisterService(db).create_user(phone=phone, telegram_id=message.from_user.id)
+        await RegisterService(db).create_user(phone=phone, telegram_id=telegram_id)
         await message.answer("Отлично! Вы успешно зарегистрированы на сайте!", reply_markup=get_actions_keyboard())
         return
     
-    await RegisterService(db).update_user(phone=phone, telegram_id=message.from_user.id)
+    await RegisterService(db).update_user(phone=phone, telegram_id=telegram_id)
     await message.answer("Отлично! Вы успешно авторизованы на сайте!", reply_markup=get_actions_keyboard())
     await state.clear()

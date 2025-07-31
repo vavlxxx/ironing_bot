@@ -14,7 +14,6 @@ router = Router()
 
 @router.message(StateFilter(None), F.text == BUTTON_MY_ORDERS)
 async def action_my_orders_handler(message: Message, db: DBManager):
-
     try:
         user = await RegisterService(db).get_user_by(telegram_id=message.from_user.id)
     except UserNotFoundException:
