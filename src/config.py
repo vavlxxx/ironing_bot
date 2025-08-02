@@ -26,7 +26,6 @@ class Settings:
     DB_TABLE_STATUSES: str
 
     BOT_TOKEN: str
-    SITE_URL: str
 
     @classmethod
     def load_from_env(cls) -> Self:
@@ -42,7 +41,6 @@ class Settings:
             DB_TABLE_STATUSES=_get_env_var('DB_TABLE_STATUSES', to_cast=str),
 
             BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
-            SITE_URL=_get_env_var('SITE_URL', to_cast=str),
         )
     
     @property

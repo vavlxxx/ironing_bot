@@ -16,6 +16,8 @@ from src.routers.user_register import router as register_router
 from src.routers.user_actions import router as actions_router
 
 
+logging.basicConfig(level=logging.INFO)
+
 dp = Dispatcher()
 dp.include_router(register_router)
 dp.include_router(actions_router)
@@ -23,7 +25,7 @@ dp.message.middleware(DBMiddleware(async_SM))
 
 bot = Bot(
     token=settings.BOT_TOKEN,
-    default=DefaultBotProperties(parse_mode='HTML')
+    default=DefaultBotProperties(parse_mode='markdown')
 )
 
 
@@ -38,9 +40,7 @@ async def main():
             
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        pass
-    print('Done!')
+        print('KeyboardInterrupt!')
