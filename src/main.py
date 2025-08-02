@@ -8,7 +8,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 
 from src.config import settings
-from src.db import async_SM
+from src.db import async_SM, engine
 from src.utils.db_manager import DBManager
 from src.common.middlewares import DBMiddleware
 
@@ -35,8 +35,12 @@ async def check_services_availability():
 
 
 async def main():
-    await bot.delete_webhook(drop_pending_updates=True)
-    await dp.start_polling(bot)
+    try:
+        await bot.delete_webhook(drop_pending_updates=True)
+        await dp.start_polling(bot)
+    finally:
+        await bot.session.close()
+        await engine.dispose()
             
 
 if __name__ == "__main__":
