@@ -1,4 +1,5 @@
 import os
+from typing import Literal
 from typing_extensions import Self
 from dataclasses import dataclass
 
@@ -28,6 +29,8 @@ class Settings:
     DB_BASE_LIMIT: int
     DB_BASE_OFFSET: int
 
+    SMSRU_MODE: Literal["TEST", "PROD"]
+
     BOT_TOKEN: str
 
     @classmethod
@@ -45,6 +48,8 @@ class Settings:
 
             DB_BASE_LIMIT=_get_env_var('DB_BASE_LIMIT', to_cast=int),
             DB_BASE_OFFSET=_get_env_var('DB_BASE_OFFSET', to_cast=int),
+
+            SMSRU_MODE=_get_env_var('SMSRU_MODE', to_cast=str),
 
             BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
         )
