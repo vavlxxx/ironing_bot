@@ -24,10 +24,10 @@ async def command_start_handler(message: Message, db: DBManager, state: FSMConte
     try:
         await RegisterService(db).get_user_by(telegram_id=message.from_user.id)
     except UserNotFoundException:
-        await message.answer_photo(caption=MESSAGE_GREETINGS, photo=FSInputFile("src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__3.jpg"), reply_markup=get_phone_keyboard())
+        await message.answer_photo(caption=MESSAGE_GREETINGS, photo="https://raw.githubusercontent.com/vavlxxx/ironing_bot/refs/heads/main/src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__3.jpg", reply_markup=get_phone_keyboard())
         await state.set_state(UserStates.GET_PHONE)
     else:
-        await message.answer_photo(caption=MESSAGE_RETURN_BACK, photo=FSInputFile("src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__3.jpg"), reply_markup=get_actions_keyboard())
+        await message.answer_photo(caption=MESSAGE_RETURN_BACK, photo="https://raw.githubusercontent.com/vavlxxx/ironing_bot/refs/heads/main/src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__3.jpg", reply_markup=get_actions_keyboard())
 
 
 @router.message(StateFilter(UserStates.GET_PHONE), or_f(F.text, F.contact))
@@ -59,8 +59,8 @@ async def sms_input_handler(message: Message, db: DBManager, state: FSMContext):
         await RegisterService(db).get_user_by(phone=phone)
     except UserNotFoundException:
         await RegisterService(db).create_user(phone=phone, telegram_id=telegram_id)
-        await message.answer_photo(caption=MESSAGE_REGISTRATION_OVER, photo=FSInputFile("src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__2.jpg"), reply_markup=get_actions_keyboard())
+        await message.answer_photo(caption=MESSAGE_REGISTRATION_OVER, photo="https://raw.githubusercontent.com/vavlxxx/ironing_bot/refs/heads/main/src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__2.jpg", reply_markup=get_actions_keyboard())
     else:
         await RegisterService(db).update_user(phone=phone, telegram_id=telegram_id)
-        await message.answer_photo(caption=MESSAGE_REGISTRATION_OVER, photo=FSInputFile("src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__2.jpg"), reply_markup=get_actions_keyboard())
+        await message.answer_photo(caption=MESSAGE_REGISTRATION_OVER, photo="https://raw.githubusercontent.com/vavlxxx/ironing_bot/refs/heads/main/src/images/Flux_Dev_Illustration_of_laundry_ironing_theme_for_a_Telegram__2.jpg", reply_markup=get_actions_keyboard())
         await state.clear()

@@ -21,7 +21,9 @@ logging.basicConfig(level=logging.INFO)
 dp = Dispatcher()
 dp.include_router(register_router)
 dp.include_router(actions_router)
+
 dp.message.middleware(DBMiddleware(async_SM))
+dp.callback_query.middleware(DBMiddleware(async_SM))
 
 bot = Bot(
     token=settings.BOT_TOKEN,

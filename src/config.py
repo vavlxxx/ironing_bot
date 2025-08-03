@@ -25,6 +25,9 @@ class Settings:
     DB_TABLE_USERS: str
     DB_TABLE_STATUSES: str
 
+    DB_BASE_LIMIT: int
+    DB_BASE_OFFSET: int
+
     BOT_TOKEN: str
 
     @classmethod
@@ -39,6 +42,9 @@ class Settings:
             DB_TABLE_ORDERS=_get_env_var('DB_TABLE_ORDERS', to_cast=str),
             DB_TABLE_USERS=_get_env_var('DB_TABLE_USERS', to_cast=str),
             DB_TABLE_STATUSES=_get_env_var('DB_TABLE_STATUSES', to_cast=str),
+
+            DB_BASE_LIMIT=_get_env_var('DB_BASE_LIMIT', to_cast=int),
+            DB_BASE_OFFSET=_get_env_var('DB_BASE_OFFSET', to_cast=int),
 
             BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
         )

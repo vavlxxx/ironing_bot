@@ -14,10 +14,11 @@ class OrderDTO(BaseDTO):
     base_price: Decimal = Field(max_digits=10, decimal_places=2)
     urgency_price: Decimal | None = Field(max_digits=10, decimal_places=2)
     total_price: Decimal = Field(max_digits=10, decimal_places=2)
-    tariff_name: str | None = Field(max_length=100)
+    tariff_name: str | None = Field("Отсутствует", max_length=100)
     tariff_price_per_kg: Decimal | None = Field(max_digits=6, decimal_places=2)
-    notes: str | None
+    notes: str | None = Field("Отсутствует")
     created_at: datetime | None
     updated_at: datetime | None
     amocrm_lead_id: int | None
-    payment_url: str | None = Field(max_length=255)
+    payment_url: str | None = Field("Отсутствует")
+    address_name: str | None = Field("Отсутствует")
