@@ -30,6 +30,10 @@ class Settings:
     DB_BASE_OFFSET: int
 
     SMSRU_MODE: Literal["TEST", "PROD"]
+    SMSRU_BASE_URL: str
+    SMSRU_API_KEY: str
+    SMSRU_DEFAULT_FROM: str
+    SMSRU_DEFAULT_MSG: str
 
     BOT_TOKEN: str
 
@@ -50,6 +54,10 @@ class Settings:
             DB_BASE_OFFSET=_get_env_var('DB_BASE_OFFSET', to_cast=int),
 
             SMSRU_MODE=_get_env_var('SMSRU_MODE', to_cast=str),
+            SMSRU_BASE_URL=_get_env_var('SMSRU_BASE_URL', to_cast=str),
+            SMSRU_API_KEY=_get_env_var('SMSRU_API_KEY', to_cast=str),
+            SMSRU_DEFAULT_FROM=_get_env_var('SMSRU_DEFAULT_FROM', to_cast=str),
+            SMSRU_DEFAULT_MSG=_get_env_var('SMSRU_DEFAULT_MSG', to_cast=str),
 
             BOT_TOKEN=_get_env_var('BOT_TOKEN', to_cast=str),
         )
