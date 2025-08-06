@@ -22,3 +22,4 @@ class OrderDTO(BaseDTO):
     amocrm_lead_id: int | None
     payment_url: str | None = Field("Отсутствует")
     address_name: str | None = Field("Отсутствует")
+    receipt_url: str | None = Field("Отсутствует")
