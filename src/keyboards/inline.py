@@ -3,6 +3,7 @@ from aiogram.types import InlineKeyboardMarkup
 
 from src.config import settings
 from src.common.callbacks import UserActions, OrderDetails
+from src.schemas.orders import OrderDTO
 
 
 def get_user_orders_keyboard(orders_by_user: list, offset: int, total_orders: int):
@@ -36,12 +37,19 @@ def get_user_orders_keyboard(orders_by_user: list, offset: int, total_orders: in
     return keyboard.as_markup()
 
 
-def get_back_keyboard(offset: int):
-    return InlineKeyboardMarkup(
-        inline_keyboard=[[
-                InlineKeyboardButton(
-                    text="◀️ Вернуться назад", 
-                    callback_data=UserActions(offset=f"{offset}").pack()
-                )
-            ]]
+def get_back_keyboard(offset: int, schema: OrderDTO):
+    keyboard = InlineKeyboardBuilder()
+    if schema.payment_url is not None:
+        keyboard.row(
+            InlineKeyboardButton(
+                text="💳 Перейти к оплате",
+                url=schema.payment_url
+            )
         )
+    keyboard.row(
+        InlineKeyboardButton(
+            text="◀️ Вернуться назад", 
+            callback_data=UserActions(offset=f"{offset}").pack()
+        )
+    )
+    return keyboard.as_markup()

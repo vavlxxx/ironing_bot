@@ -86,7 +86,6 @@ def get_order_description(schema: OrderDTO) -> str:
 - Цена за кг: {schema.tariff_price_per_kg} ₽/кг
 
 💰 Итоговая стоимость: {schema.total_price}₽
-💳 Ссылка на оплату: [(перейти)]({schema.payment_url})
 """
 
 def get_code_input_message(phone):

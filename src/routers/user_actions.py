@@ -41,7 +41,7 @@ async def action_order_details_handler(callback: CallbackQuery, callback_data: O
         order_by_user = await db.orders.get_one_or_none(id=order_id)
         await callback.message.edit_text(
             get_order_description(order_by_user),
-            reply_markup=get_back_keyboard(offset=offset)
+            reply_markup=get_back_keyboard(offset=offset, schema=order_by_user)
         )
 
 
