@@ -39,7 +39,7 @@ def get_user_orders_keyboard(orders_by_user: list, offset: int, total_orders: in
 
 def get_back_keyboard(offset: int, schema: OrderDTO):
     keyboard = InlineKeyboardBuilder()
-    if schema.payment_url is not None and schema.status_id == 3:
+    if schema.payment_url is not None and schema.status_id == 1:
         keyboard.row(InlineKeyboardButton(text="💳 Перейти к оплате", url=schema.payment_url))
     if schema.receipt_url is not None:
         keyboard.row(InlineKeyboardButton(text="📃 Скачать квитанцию", url=schema.receipt_url))

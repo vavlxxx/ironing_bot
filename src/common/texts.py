@@ -86,6 +86,8 @@ def get_order_description(schema: OrderDTO) -> str:
 - Цена за кг: {schema.tariff_price_per_kg} ₽/кг
 
 💰 Итоговая стоимость: {schema.total_price}₽
+
+{'⏰ Заказ готов к оплате, но ссылка пока ещё не подготовлена. Пожалуйста, ожидайте... ' if schema.payment_url is None and schema.status_id == 1 else ''}
 """
 
 def get_code_input_message(phone):
