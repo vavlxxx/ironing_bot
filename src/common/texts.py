@@ -10,14 +10,6 @@ BUTTON_CHANGE_PHONE = "📱 Изменить номер"
 
 COMMAND_ORDERS = "orders"
 
-ORDER_STATUSES = {
-    1 : "🛑 Не оплачен",
-    2 : "📝 В работе",
-    3 : "✅ Заказ готов",
-    4 : "❌ Заказ отменен",
-    5 : "⏳ Новый",
-}
-
 MESSAGE_CHANGE_PHONE = """
 Изменение номера!
 👇 Хорошо, поделитесь своим новым номером телефона:
@@ -72,13 +64,16 @@ def get_orders_list_message(user: UserDTO, current_orders: int, offset: int):
 👇 **Ваши заказы ({offset+current_orders}/{user.total_orders})**
 """
 
-def get_order_description(schema: OrderDTO) -> str:
+TEXT_AWAITING_PAYMENT = '⏰ Заказ готов к оплате, но ссылка пока ещё не подготовлена. Пожалуйста, ожидайте... '
+TEXT_AWAITING_RECEIPT = '⏰ Заказ успешно оплачен! Пожалуйста, ожидайте пока скачивается квитанция... '
+
+def get_order_description(schema: OrderDTO, statuses) -> str:
     return f"""
 🔍 **Заказ: {schema.order_number}**
 
 📆 Дата создания: {schema.created_at}
 📍 Адрес доставки: {schema.address_name}
-⚡ Текущий статус: {ORDER_STATUSES[schema.status_id]}
+⚡ Текущий статус: {statuses.get(schema.status_id, "Неизвестно")}
 
 📦 Детали заказа
 - Общий вес: {schema.total_weight_kg} кг
@@ -87,7 +82,8 @@ def get_order_description(schema: OrderDTO) -> str:
 
 💰 Итоговая стоимость: {schema.total_price}₽
 
-{'⏰ Заказ готов к оплате, но ссылка пока ещё не подготовлена. Пожалуйста, ожидайте... ' if schema.payment_url is None and schema.status_id == 1 else ''}
+{ TEXT_AWAITING_PAYMENT if schema.payment_url is None and schema.status_id == statuses.get('not_paid', 0) else ''}
+{ TEXT_AWAITING_RECEIPT if schema.receipt_url is None and schema.status_id == statuses.get('completed', 0) else ''}
 """
 
 def get_code_input_message(phone):

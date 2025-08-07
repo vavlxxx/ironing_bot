@@ -1,3 +1,5 @@
+from time import time
+
 from aiogram import Router, F
 from aiogram.filters import StateFilter, Command, or_f
 from aiogram.types import Message, CallbackQuery
@@ -37,12 +39,18 @@ async def action_order_details_handler(callback: CallbackQuery, callback_data: O
         await RegisterService(db).get_user_by(telegram_id=callback.from_user.id)
     except UserNotFoundException:
         await callback.message.edit_text("⚠️ Произошла ошибка при получении Ваших заказов! Пожалуйста попропробуйте повторить операцию позже.")
-    else:
-        order_by_user = await db.orders.get_one_or_none(id=order_id)
-        await callback.message.edit_text(
-            get_order_description(order_by_user),
-            reply_markup=get_back_keyboard(offset=offset, schema=order_by_user)
-        )
+        return
+    
+    order_by_user = await db.orders.get_one_or_none(id=order_id)
+    if not hasattr(db, "st_") or time() > db.expiration:
+        statuses = await db.statuses.get_all()
+        db.st_ = statuses
+        db.expiration = time() + settings.DB_EXPIRATION_TIME
+
+    await callback.message.edit_text(
+        get_order_description(order_by_user, statuses=db.st_),
+        reply_markup=get_back_keyboard(offset=offset, schema=order_by_user, statuses=db.st_)
+    )
 
 
 async def display_orders_list(method, telegram_id, db: DBManager, offset: int = 0):

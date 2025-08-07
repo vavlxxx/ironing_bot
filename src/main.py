@@ -31,11 +31,6 @@ bot = Bot(
 )
 
 
-async def check_services_availability():
-    async with DBManager(async_SM) as db:
-        await db.check_connection()
-
-
 async def main():
     try:
         await bot.delete_webhook(drop_pending_updates=True)

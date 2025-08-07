@@ -1,4 +1,4 @@
-from sqlalchemy import MetaData, create_engine
+from sqlalchemy import MetaData, create_engine, text
 from sqlalchemy.ext.automap import automap_base
 
 from src.config import settings
@@ -34,8 +34,6 @@ class DBManager:
     async def commit(self):
         await self.session.commit()
 
-    async def check_connection(self):
-        await self.session.execute("SELECT version();")
 
     def get_model(self, table_name: str):
         return self.models.get(table_name)

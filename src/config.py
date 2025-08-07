@@ -26,9 +26,6 @@ class Settings:
     DB_TABLE_USERS: str
     DB_TABLE_STATUSES: str
 
-    DB_BASE_LIMIT: int
-    DB_BASE_OFFSET: int
-
     SMSRU_MODE: Literal["TEST", "PROD"]
     SMSRU_BASE_URL: str
     SMSRU_API_KEY: str
@@ -36,6 +33,10 @@ class Settings:
     SMSRU_DEFAULT_MSG: str
 
     BOT_TOKEN: str
+
+    DB_BASE_LIMIT: int
+    DB_BASE_OFFSET: int
+    DB_EXPIRATION_TIME: int = 60 * 30
 
     @classmethod
     def load_from_env(cls) -> Self:

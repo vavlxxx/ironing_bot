@@ -1,5 +1,5 @@
 from sqlalchemy import insert, select, update
-
+from src.db import engine
 
 class BaseRepository():
     

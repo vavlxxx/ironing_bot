@@ -8,5 +8,5 @@ class StatusDTO(BaseDTO):
     slug: str = Field(max_length=20, alias='code')
     color: str | None = Field(max_length=7)
     description: str | None
-    is_active: bool | None
+    is_active: int | None
     
